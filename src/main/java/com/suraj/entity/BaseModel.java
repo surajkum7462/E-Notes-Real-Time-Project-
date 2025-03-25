@@ -11,16 +11,16 @@ import lombok.Setter;
 @MappedSuperclass
 public class BaseModel {
 
-	private Boolean is_Active;
+	private Boolean isActive;
 
-	private Boolean is_Deleted;
+	private Boolean isDeleted;
 
-	private Integer created_By;
+	private Integer createdBy;
 
-	private Date created_On;
+	private Date createdOn;
 
-	private Integer updated_By;
+	private Integer updatedBy;
 
-	private Date updated_On;
+	private Date updatedOn;
 
 }

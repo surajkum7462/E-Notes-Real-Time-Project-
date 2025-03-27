@@ -40,6 +40,8 @@ public class CategoryController {
 
 	@GetMapping("/")
 	public ResponseEntity<?> getCategory() {
+//		String name=null;
+//		name.toUpperCase();
 		List<CategoryDto> allCategory = categoryService.getAllCategory();
 		if (CollectionUtils.isEmpty(allCategory)) {
 			return ResponseEntity.noContent().build();
@@ -59,10 +61,10 @@ public class CategoryController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<?> getCategoryDetailsById(@PathVariable Integer id) {
+	public ResponseEntity<?> getCategoryDetailsById(@PathVariable Integer id) throws Exception {
 		CategoryDto category = categoryService.getCategoryById(id);
 		if (ObjectUtils.isEmpty(category)) {
-			return new ResponseEntity<>("Category Not Found with id=" + id, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Category Not Found ", HttpStatus.NOT_FOUND);
 		} else {
 			return new ResponseEntity<>(category, HttpStatus.OK);
 		}

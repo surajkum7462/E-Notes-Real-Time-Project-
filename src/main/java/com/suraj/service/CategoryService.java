@@ -5,6 +5,7 @@ import java.util.List;
 import com.suraj.dto.CategoryDto;
 import com.suraj.dto.CategoryResponse;
 import com.suraj.entity.Category;
+import com.suraj.exception.ResourceNotFoundException;
 
 
 public interface CategoryService {
@@ -15,7 +16,7 @@ public interface CategoryService {
 
 	public List<CategoryResponse> getActiveCategory();
 
-	public CategoryDto getCategoryById(Integer id);
+	public CategoryDto getCategoryById(Integer id) throws Exception;
 
 	public Boolean deleteCategory(Integer id);
 	

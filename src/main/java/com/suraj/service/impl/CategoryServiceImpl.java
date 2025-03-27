@@ -15,12 +15,17 @@ import com.suraj.entity.Category;
 import com.suraj.exception.ResourceNotFoundException;
 import com.suraj.repo.CategoryRepo;
 import com.suraj.service.CategoryService;
+import com.suraj.util.Validation;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
 	private CategoryRepo categoryRepo;
+	
+	
+	@Autowired
+	private Validation validation;
 	
 	@Autowired
 	private ModelMapper mapper;
@@ -41,6 +46,12 @@ public class CategoryServiceImpl implements CategoryService {
 //		category.setDescription(categoryDto.getDescription());
 //		category.setIs_Active(categoryDto.getIs_Active());
 //		
+		
+		
+		// Validation Checking
+		validation.categoryValidation(categoryDto);
+		
+		
 		
 		Category category = mapper.map(categoryDto, Category.class);
 	    if(ObjectUtils.isEmpty(category.getId()))

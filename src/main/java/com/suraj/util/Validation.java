@@ -3,6 +3,7 @@ package com.suraj.util;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import com.suraj.dto.CategoryDto;
@@ -38,6 +39,7 @@ public class Validation {
 				error.put("description", "Description field is empty or null");
 			}
 
+			// validation isActive
 
 			if (ObjectUtils.isEmpty(categoryDto.getIsActive())) {
 				error.put("isActive", "Name field is empty or null");

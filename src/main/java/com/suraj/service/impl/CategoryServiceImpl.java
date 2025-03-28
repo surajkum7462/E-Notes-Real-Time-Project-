@@ -12,6 +12,7 @@ import org.springframework.util.ObjectUtils;
 import com.suraj.dto.CategoryDto;
 import com.suraj.dto.CategoryResponse;
 import com.suraj.entity.Category;
+import com.suraj.exception.ExistsDataException;
 import com.suraj.exception.ResourceNotFoundException;
 import com.suraj.repo.CategoryRepo;
 import com.suraj.service.CategoryService;
@@ -50,6 +51,18 @@ public class CategoryServiceImpl implements CategoryService {
 		
 		// Validation Checking
 		validation.categoryValidation(categoryDto);
+		
+		// check exist or not
+		Boolean exists=categoryRepo.existsByName(categoryDto.getName().trim());
+		
+		if(exists)
+		{
+			throw new ExistsDataException("Category Already Exists");
+		}
+		
+		
+		
+		
 		
 		
 		

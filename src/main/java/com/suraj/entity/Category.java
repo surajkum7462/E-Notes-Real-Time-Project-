@@ -2,8 +2,11 @@ package com.suraj.entity;
 
 import java.util.Date;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,6 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Category extends BaseModel{
 	
 	
@@ -27,6 +31,10 @@ public class Category extends BaseModel{
 	private String name;
 	
 	private String description;
+	
+	private Boolean isActive;
+
+	private Boolean isDeleted;
 	
 	
 	

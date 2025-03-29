@@ -1,5 +1,7 @@
 package com.suraj.exception;
 
+import java.io.FileNotFoundException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -49,5 +51,26 @@ public class GlobalExceptionHandler {
 		//return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		return CommonUtil.createErrorResponeMessage(e.getMessage(), HttpStatus.BAD_REQUEST);
 	}
+	
+	
+	@ExceptionHandler(FileNotFoundException.class)
+	public ResponseEntity<?> handleFileNotFoundException(FileNotFoundException e) {
+		//return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+		return CommonUtil.createErrorResponeMessage(e.getMessage(), HttpStatus.NOT_FOUND);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

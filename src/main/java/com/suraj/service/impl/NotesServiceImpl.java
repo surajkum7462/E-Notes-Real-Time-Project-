@@ -1,7 +1,9 @@
 package com.suraj.service.impl;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -80,7 +83,7 @@ public class NotesServiceImpl implements NotesService {
 			String originalFileName = file.getOriginalFilename();
 			String extension = FilenameUtils.getExtension(originalFileName);
 
-			List<String> extensionAllow = Arrays.asList("pdf", "xlsx", "jpeg", "png");
+			List<String> extensionAllow = Arrays.asList("pdf", "xlsx", "jpeg", "png", "docx");
 
 			if (!extensionAllow.contains(extension)) {
 				throw new IllegalArgumentException("Invalid file Format !Upload only .pdf,.jpeg,.png");
@@ -144,6 +147,24 @@ public class NotesServiceImpl implements NotesService {
 		List<Notes> all = notesRepo.findAll();
 		List<NotesDto> list = all.stream().map(note -> mapper.map(note, NotesDto.class)).toList();
 		return list;
+	}
+
+	@Override
+	public byte[] downloadFile(FileDetails fileDtls) throws Exception {
+
+		
+		InputStream io = new FileInputStream(fileDtls.getPath());
+
+		byte[] byteData = StreamUtils.copyToByteArray(io);
+
+		return byteData;
+	}
+
+	@Override
+	public FileDetails getFileDetails(Integer id) throws Exception {
+		FileDetails fileDtls = fIleDetailsRepo.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("File is not available"));
+		return fileDtls;
 	}
 
 }

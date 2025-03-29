@@ -36,6 +36,8 @@ public class NotesDto {
 	@Getter
 	@Setter
 	public static class FilesDto {
+		
+		private Integer id;
 
 		private String originalFileName;
 

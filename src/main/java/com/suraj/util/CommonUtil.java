@@ -8,8 +8,8 @@ import com.suraj.handler.GenericResponse;
 public class CommonUtil {
 
 	public static ResponseEntity<?> createBuildRespone(Object data, HttpStatus status) {
-		GenericResponse response = GenericResponse.builder().response(status).status("success").message("success").data(data)
-				.build();
+		GenericResponse response = GenericResponse.builder().response(status).status("success").message("success")
+				.data(data).build();
 		return response.create();
 	}
 
@@ -20,8 +20,8 @@ public class CommonUtil {
 	}
 
 	public static ResponseEntity<?> createErrorRespone(Object data, HttpStatus status) {
-		GenericResponse response = GenericResponse.builder().response(status).data(data).status("failed").message("failed")
-				.build();
+		GenericResponse response = GenericResponse.builder().response(status).data(data).status("failed")
+				.message("failed").build();
 		return response.create();
 	}
 

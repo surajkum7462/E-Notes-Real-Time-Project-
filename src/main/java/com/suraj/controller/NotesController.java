@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.suraj.dto.NotesDto;
+import com.suraj.dto.NotesResponse;
 import com.suraj.entity.FileDetails;
 import com.suraj.service.NotesService;
 import com.suraj.util.CommonUtil;
@@ -40,6 +41,22 @@ public class NotesController {
 		}
 	}
 
+	@GetMapping("/download/{id}")
+	public ResponseEntity<?> downloadFile(@PathVariable Integer id) throws Exception {
+
+		FileDetails fileDetails = notesService.getFileDetails(id);
+
+		byte[] data = notesService.downloadFile(fileDetails);
+
+		HttpHeaders headers = new HttpHeaders();
+		String contentType = CommonUtil.getContentType(fileDetails.getOriginalFileName());
+		headers.setContentType(MediaType.parseMediaType(contentType));
+		headers.setContentDispositionFormData("attachment", fileDetails.getOriginalFileName());
+
+		return ResponseEntity.ok().headers(headers).body(data);
+
+	}
+
 	@GetMapping("/")
 	public ResponseEntity<?> getAllNotes() {
 		List<NotesDto> allNotes = notesService.getAllNotes();
@@ -50,22 +67,18 @@ public class NotesController {
 
 	}
 
-	@GetMapping("/download/{id}")
-	public ResponseEntity<?> downloadFile(@PathVariable Integer id) throws Exception {
-		
-		FileDetails fileDetails=notesService.getFileDetails(id);
+	@GetMapping("/user-notes")
+	public ResponseEntity<?> getAllNotesByUser(@RequestParam(name = "pageNo", defaultValue = "0") Integer pageNo,
+			@RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
+        
+		Integer userId = 2;
 
-		byte[] data=notesService.downloadFile(fileDetails);
-		
-		HttpHeaders headers=new HttpHeaders();
-		String contentType = CommonUtil.getContentType(fileDetails.getOriginalFileName());
-		headers.setContentType(MediaType.parseMediaType(contentType));
-		headers.setContentDispositionFormData("attachment", fileDetails.getOriginalFileName());
-		
-		
-		return ResponseEntity.ok().headers(headers).body(data);
-		
+		NotesResponse notes = notesService.getAllNotesByUser(userId,pageNo,pageSize);
+//		if (CollectionUtils.isEmpty(notes)) {
+//			return ResponseEntity.noContent().build();
+//		}
+		return CommonUtil.createBuildRespone(notes, HttpStatus.OK);
+
 	}
-
 
 }

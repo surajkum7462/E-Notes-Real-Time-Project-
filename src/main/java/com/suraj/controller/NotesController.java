@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -72,135 +73,92 @@ public class NotesController {
 	@GetMapping("/user-notes")
 	public ResponseEntity<?> getAllNotesByUser(@RequestParam(name = "pageNo", defaultValue = "0") Integer pageNo,
 			@RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
-        
+
 		Integer userId = 2;
 
-		NotesResponse notes = notesService.getAllNotesByUser(userId,pageNo,pageSize);
+		NotesResponse notes = notesService.getAllNotesByUser(userId, pageNo, pageSize);
 //		if (CollectionUtils.isEmpty(notes)) {
 //			return ResponseEntity.noContent().build();
 //		}
 		return CommonUtil.createBuildRespone(notes, HttpStatus.OK);
 
 	}
-	
+
 	@GetMapping("/delete/{id}")
-	public ResponseEntity<?> deleteNotes(@PathVariable Integer id) throws Exception
-	{
-		
+	public ResponseEntity<?> deleteNotes(@PathVariable Integer id) throws Exception {
+
 		notesService.softDeleteNotes(id);
-		
+
 		return CommonUtil.createBuildResponeMessage("Delete Success", HttpStatus.OK);
 	}
-	
-	
+
 	@GetMapping("/restore/{id}")
-	public ResponseEntity<?> restoreNotes(@PathVariable Integer id) throws Exception
-	{
-		
+	public ResponseEntity<?> restoreNotes(@PathVariable Integer id) throws Exception {
+
 		notesService.restoreNotes(id);
-		
+
 		return CommonUtil.createBuildResponeMessage("Restore Success", HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/recycle/{id}")
-	public ResponseEntity<?> recycleBean(@PathVariable Integer id) throws Exception
-	{
-		
-		List<NotesDto> notes=notesService.getUserRecycleBinNotes(id);
-		if(CollectionUtils.isEmpty(notes))
-		{
+	public ResponseEntity<?> recycleBean(@PathVariable Integer id) throws Exception {
+
+		List<NotesDto> notes = notesService.getUserRecycleBinNotes(id);
+		if (CollectionUtils.isEmpty(notes)) {
 			return CommonUtil.createBuildResponeMessage("Not any Deleted Notes", HttpStatus.OK);
 		}
 		return CommonUtil.createBuildRespone(notes, HttpStatus.OK);
 	}
-	
-	
-	
+
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<?> hardDeleteNotes(@PathVariable Integer id) throws Exception
-	{
-		
+	public ResponseEntity<?> hardDeleteNotes(@PathVariable Integer id) throws Exception {
+
 		notesService.hardDeleteNotes(id);
-		
+
 		return CommonUtil.createBuildResponeMessage("Delete Success", HttpStatus.OK);
 	}
-	
-	
-	
 
 	@DeleteMapping("/delete-recycle")
-	public ResponseEntity<?> emptyRecycleBean() throws Exception
-	{
-		Integer userId=2;
+	public ResponseEntity<?> emptyRecycleBean() throws Exception {
+		Integer userId = 2;
 		notesService.emptyRecycleBean(userId);
-		
+
 		return CommonUtil.createBuildResponeMessage("Delete Success", HttpStatus.OK);
 	}
-	
-	
-	
+
 	@GetMapping("/fav/{noteId}")
-	public ResponseEntity<?> favouriteNote(@PathVariable Integer noteId) throws Exception
-	{
+	public ResponseEntity<?> favouriteNote(@PathVariable Integer noteId) throws Exception {
 		notesService.favouriteNotes(noteId);
-		
+
 		return CommonUtil.createBuildResponeMessage("Notes Added Favourite Successfullly", HttpStatus.OK);
 	}
-	
-	
+
 	@DeleteMapping("/un-fav/{favNoteId}")
-	public ResponseEntity<?> unfavouriteNote(@PathVariable Integer favNoteId) throws Exception
-	{
-		
+	public ResponseEntity<?> unfavouriteNote(@PathVariable Integer favNoteId) throws Exception {
+
 		notesService.unFavouriteNotes(favNoteId);
-		
+
 		return CommonUtil.createBuildResponeMessage("Notes Unfavourite Successfully", HttpStatus.OK);
 	}
-	
-	
+
 	@GetMapping("/fav-note")
-	public ResponseEntity<?> getUserFavouriteNotes() throws Exception
-	{
+	public ResponseEntity<?> getUserFavouriteNotes() throws Exception {
 		List<FavouriteNotesDto> userfav = notesService.getUserFavouriteNotes();
-		if(CollectionUtils.isEmpty(userfav))
-		{
+		if (CollectionUtils.isEmpty(userfav)) {
 			return ResponseEntity.noContent().build();
 		}
-		
+
 		return CommonUtil.createBuildRespone(userfav, HttpStatus.OK);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
+	@GetMapping("/copy/{noteId}")
+	public ResponseEntity<?> copyNotes(@PathVariable Integer noteId) throws Exception {
+		Boolean copyNotes = notesService.copyNotes(noteId);
+		if (!ObjectUtils.isEmpty(copyNotes)) {
+			return CommonUtil.createBuildResponeMessage("Copied Successfullly", HttpStatus.OK);
+		} else {
+			return CommonUtil.createErrorResponeMessage("Copy failed ! Try Again", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 }

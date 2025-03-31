@@ -6,9 +6,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import org.apache.commons.io.FilenameUtils;
 import org.modelmapper.ModelMapper;
@@ -17,6 +22,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -60,8 +66,11 @@ public class NotesServiceImpl implements NotesService {
 		ObjectMapper ob = new ObjectMapper();
 		NotesDto notesDto = ob.readValue(notes, NotesDto.class);
 
-        // Update notes if id is given
-		if (!ObjectUtils.isEmpty( notesDto.getId())) {
+		notesDto.setIsDeleted(false);
+		notesDto.setDeletedOn(null);
+
+		// Update notes if id is given
+		if (!ObjectUtils.isEmpty(notesDto.getId())) {
 			updateNotes(notesDto, file);
 		}
 
@@ -75,7 +84,7 @@ public class NotesServiceImpl implements NotesService {
 		if (!ObjectUtils.isEmpty(fileDtls)) {
 			notesMap.setFileDetails(fileDtls);
 		} else {
-			if (ObjectUtils.isEmpty( notesDto.getId())) {
+			if (ObjectUtils.isEmpty(notesDto.getId())) {
 				notesMap.setFileDetails(null);
 			}
 
@@ -95,12 +104,12 @@ public class NotesServiceImpl implements NotesService {
 
 		// Set the existing file
 		if (ObjectUtils.isEmpty(file)) {
-	        if (existNotes.getFileDetails() != null) { 
-	            notesDto.setFileDetails(mapper.map(existNotes.getFileDetails(), FilesDto.class));
-	        } else {
-	            notesDto.setFileDetails(null);  // Prevents null mapping issue
-	        }
-	    }
+			if (existNotes.getFileDetails() != null) {
+				notesDto.setFileDetails(mapper.map(existNotes.getFileDetails(), FilesDto.class));
+			} else {
+				notesDto.setFileDetails(null); // Prevents null mapping issue
+			}
+		}
 
 	}
 
@@ -200,7 +209,7 @@ public class NotesServiceImpl implements NotesService {
 		// 10 data = 5,5-> 2 Pages
 		PageRequest pageble = PageRequest.of(pageNo, pageSize);
 
-		Page<Notes> pageNotes = notesRepo.findByCreatedBy(userId, pageble);
+		Page<Notes> pageNotes = notesRepo.findByCreatedByAndIsDeletedFalse(userId, pageble);
 
 		List<NotesDto> notesDto = pageNotes.get().map(n -> mapper.map(n, NotesDto.class)).toList();
 
@@ -213,4 +222,90 @@ public class NotesServiceImpl implements NotesService {
 		return notesRes;
 	}
 
+	@Override
+	public void softDeleteNotes(Integer id) throws Exception {
+		Notes note = notesRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid id"));
+		note.setIsDeleted(true);
+		note.setDeletedOn(LocalDateTime.now());
+		notesRepo.save(note);
+
+	}
+
+	@Override
+	public void restoreNotes(Integer id) throws Exception {
+		// TODO Auto-generated method stub
+		Notes note = notesRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid id"));
+		note.setIsDeleted(false);
+		note.setDeletedOn(null);
+		notesRepo.save(note);
+
+	}
+
+	@Override
+	public List<NotesDto> getUserRecycleBinNotes(Integer id) {
+
+		List<Notes> recycleNotes = notesRepo.findByCreatedByAndIsDeletedTrue(id);
+
+		List<NotesDto> notesDto = recycleNotes.stream().map(note -> mapper.map(note, NotesDto.class)).toList();
+
+		return notesDto;
+	}
+
+	@Override
+	public void hardDeleteNotes(Integer id) throws Exception {
+		Notes notes = notesRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Notes Not Found"));
+
+		if (notes.getIsDeleted()) {
+			notesRepo.delete(notes);
+		} else {
+			throw new IllegalArgumentException("Sorry You can't delete Directly");
+		}
+
+	}
+
+	@Override
+	public void emptyRecycleBean(Integer userId) {
+		List<Notes> recycleNotes = notesRepo.findByCreatedByAndIsDeletedTrue(userId);
+		if(!CollectionUtils.isEmpty(recycleNotes))
+		{
+			notesRepo.deleteAll(recycleNotes);
+		}
+	}
+	
+
 }
+
+     
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

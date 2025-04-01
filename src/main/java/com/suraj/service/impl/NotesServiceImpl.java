@@ -312,59 +312,20 @@ public class NotesServiceImpl implements NotesService {
 	public Boolean copyNotes(Integer noteId) throws Exception {
 		Notes notes = notesRepo.findById(noteId)
 				.orElseThrow(() -> new ResourceNotFoundException("Notes Not FOund !Invalid Id"));
-		
-		
-		Notes copyNotes=Notes.builder()
-				
-				.title(notes.getTitle())
-				.description(notes.getDescription())
-				.category(notes.getCategory())
-				.isDeleted(false)
-				.fileDetails(notes.getFileDetails())	
-				.build();
-		
+
+		Notes copyNotes = Notes.builder()
+
+				.title(notes.getTitle()).description(notes.getDescription()).category(notes.getCategory())
+				.isDeleted(false).fileDetails(notes.getFileDetails()).build();
+
 		// TODO : Need to Check User Validation
-		
-		
-		
-		
+
 		Notes save = notesRepo.save(copyNotes);
-		if(!ObjectUtils.isEmpty(save))
-		{
+		if (!ObjectUtils.isEmpty(save)) {
 			return true;
 		}
 		return false;
-		
+
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

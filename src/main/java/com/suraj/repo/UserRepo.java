@@ -6,4 +6,6 @@ import com.suraj.entity.User;
 
 public interface UserRepo extends JpaRepository<User, Integer>{
 
+	Boolean existsByEmail(String email);
+
 }

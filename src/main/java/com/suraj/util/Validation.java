@@ -16,15 +16,24 @@ import com.suraj.dto.TodoDto.StatusDto;
 import com.suraj.dto.UserDto;
 import com.suraj.entity.Role;
 import com.suraj.enums.TodoStatus;
+import com.suraj.exception.ExistsDataException;
 import com.suraj.exception.ResourceNotFoundException;
 import com.suraj.exception.ValidationException;
 import com.suraj.repo.RoleRepo;
+import com.suraj.repo.UserRepo;
 
 @Component
 public class Validation {
 
 	@Autowired
 	private RoleRepo roleRepo;
+	
+	
+	@Autowired
+	private UserRepo userRepo;
+
+
+
 
 	public void categoryValidation(CategoryDto categoryDto) {
 		Map<String, Object> error = new LinkedHashMap<>();
@@ -102,6 +111,15 @@ public class Validation {
 		
 		if(!StringUtils.hasText(userDto.getEmail()) || !userDto.getEmail().trim().matches(Constatnts.EMAIL_REGEX)) {
 			throw new IllegalArgumentException("Email is Invalid");
+		}else
+		{
+			// validate email exist user
+			Boolean existEmail = userRepo.existsByEmail(userDto.getEmail());
+			if(existEmail)
+			{
+				throw new ExistsDataException("Email is already exist");
+			}
+			
 		}
 		
 		if(!StringUtils.hasText(userDto.getMobNo()) || !userDto.getMobNo().matches(Constatnts.MOBNO_REGEX)) {
@@ -132,6 +150,7 @@ public class Validation {
 				throw new IllegalArgumentException("role is invalid"+invalidReqRoleids);
 			}
 		}
+		
 		
 		
 	}

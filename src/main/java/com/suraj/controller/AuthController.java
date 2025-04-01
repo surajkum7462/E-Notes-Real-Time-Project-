@@ -13,7 +13,7 @@ import com.suraj.service.UserService;
 import com.suraj.util.CommonUtil;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
 
 	@Autowired
@@ -21,10 +21,10 @@ public class AuthController {
 
 	
 	@PostMapping("/")
-	public ResponseEntity<?> registerUser(@RequestBody UserDto userDto) {
+	public ResponseEntity<?> registerUser(@RequestBody UserDto userDto) throws Exception {
 		Boolean register = userService.regitster(userDto);
 		if (register) {
-			return CommonUtil.createBuildResponeMessage("Register Successfully", HttpStatus.OK);
+			return CommonUtil.createBuildResponeMessage("Register Successfull !Please check your email for verification", HttpStatus.OK);
 		} else {
 			return CommonUtil.createErrorResponeMessage("Registration failed", HttpStatus.INTERNAL_SERVER_ERROR);
 		}

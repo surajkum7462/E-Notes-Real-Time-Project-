@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import com.suraj.dto.EmailRequest;
 import com.suraj.dto.UserDto;
 import com.suraj.entity.Role;
 import com.suraj.entity.User;
@@ -15,47 +16,74 @@ import com.suraj.repo.UserRepo;
 import com.suraj.service.UserService;
 import com.suraj.util.Validation;
 
+import jakarta.mail.MessagingException;
 import lombok.val;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepo userRepo;
-	
+
 	@Autowired
 	private RoleRepo roleRepo;
-	
+
 	@Autowired
 	private ModelMapper mapper;
-	
+
 	@Autowired
 	private Validation validation;
 	
+	
+	@Autowired
+	private EmailService emailService;
+	
+
 	@Override
-	public Boolean regitster(UserDto userDto) {
+	public Boolean regitster(UserDto userDto) throws Exception {
 		validation.userValidation(userDto);
-		
+
 		User user = mapper.map(userDto, User.class);
-		
-		setRole(userDto,user);
-		
-		
-		
+
+		setRole(userDto, user);
+
 		User save = userRepo.save(user);
-		if(!ObjectUtils.isEmpty(save))
-		{
+		if (!ObjectUtils.isEmpty(save)) {
+			// send email
+			emailSend(save);
 			return true;
 		}
-		
-		
-		
-		
+
 		return false;
 	}
 
-	private void setRole(UserDto userDto,User user) {
-		List<Integer> reqRoleId = userDto.getRoles().stream().map(r->r.getId()).toList();
+	private void emailSend(User save) throws Exception {
+	    String message = "<div style='font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9; text-align: center;'>"
+	            + "<h2 style='color: #2E86C1; margin-bottom: 10px;'>Welcome to <span style='color: #28a745;'>E-Notes</span>, " + save.getFirstName() + "!</h2>"
+	            + "<p style='font-size: 16px; color: #555; line-height: 1.5;'>We're excited to have you on board. Your account has been successfully registered. 🎉</p>"
+	            + "<p style='font-size: 16px; color: #555; line-height: 1.5;'>Please verify your email to start using E-Notes:</p>"
+	            + "<a href='#' style='display: inline-block; background: linear-gradient(90deg, #28a745, #218838); color: #fff; font-size: 16px; font-weight: bold; padding: 12px 24px; text-decoration: none; border-radius: 6px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); margin: 20px auto; display: block; width: max-content;'>✅ Verify Your Account</a>"
+	            + "<p style='font-size: 14px; color: #777; margin-top: 20px;'>If you did not sign up for this account, you can safely ignore this email.</p>"
+	            + "<hr style='border: 0; height: 1px; background: #ddd; margin: 20px 0;'>"
+	            + "<p style='font-size: 14px; color: #555;'>Need help? Contact our support team anytime.</p>"
+	            + "<p style='font-size: 14px; color: #555; font-weight: bold;'>Thanks,<br><span style='color: #2E86C1;'>E-Notes Team</span></p>"
+	            + "<p style='font-size: 12px; color: #aaa;'>© 2025 E-Notes. All rights reserved.</p>"
+	            + "</div>";
+
+	    EmailRequest emailReq = EmailRequest.builder()
+	            .to(save.getEmail())
+	            .title("Account Registration Confirmation")
+	            .subject("🎉 Welcome to E-Notes! Your Account is Ready")
+	            .message(message)
+	            .build();
+
+	    emailService.send(emailReq);
+	}
+
+
+
+	private void setRole(UserDto userDto, User user) {
+		List<Integer> reqRoleId = userDto.getRoles().stream().map(r -> r.getId()).toList();
 		List<Role> roles = roleRepo.findAllById(reqRoleId);
 		user.setRoles(roles);
 	}

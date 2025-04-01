@@ -15,15 +15,33 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<?> handlerException(Exception e) {
-		//return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		
-		return CommonUtil.createErrorResponeMessage(null, null);
+		return CommonUtil.createErrorResponeMessage(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		
 	}
+	
+	
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<?> handlerIllegalArgumentException(IllegalArgumentException e) {
+		
+		return CommonUtil.createErrorResponeMessage(e.getMessage(), HttpStatus.BAD_REQUEST);
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	@ExceptionHandler(NullPointerException.class)
 	public ResponseEntity<?> handleNullPointerException(Exception e) {
-		//return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		return CommonUtil.createErrorResponeMessage(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 

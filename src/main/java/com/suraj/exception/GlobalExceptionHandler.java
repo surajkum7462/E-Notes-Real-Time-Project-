@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -32,6 +33,13 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(NullPointerException.class)
 	public ResponseEntity<?> handleNullPointerException(Exception e) {
 		return CommonUtil.createErrorResponeMessage(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	
+	
+	@ExceptionHandler(BadCredentialsException.class)
+	public ResponseEntity<?> handleBadCredentialsException(BadCredentialsException e) {
+		return CommonUtil.createErrorResponeMessage(e.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(ResourceNotFoundException.class)

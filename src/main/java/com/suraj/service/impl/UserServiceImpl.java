@@ -5,10 +5,17 @@ import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import com.suraj.config.security.CustomUserDetails;
 import com.suraj.dto.EmailRequest;
+import com.suraj.dto.LoginRequest;
+import com.suraj.dto.LoginResponse;
 import com.suraj.dto.UserDto;
 import com.suraj.entity.AccountStatus;
 import com.suraj.entity.Role;
@@ -35,6 +42,12 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@Override
 	public Boolean regitster(UserDto userDto,String url) throws Exception {
@@ -48,7 +61,7 @@ public class UserServiceImpl implements UserService {
 				.build();
 
 		user.setStatus(status);
-
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 		User save = userRepo.save(user);
 		if (!ObjectUtils.isEmpty(save)) {
 			// send email
@@ -91,5 +104,57 @@ public class UserServiceImpl implements UserService {
 		List<Role> roles = roleRepo.findAllById(reqRoleId);
 		user.setRoles(roles);
 	}
+
+	@Override
+	public LoginResponse login(LoginRequest loginRequest) {
+		
+		Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+		
+		if(authenticate.isAuthenticated())
+		{
+		     CustomUserDetails customUserDetails =(CustomUserDetails)authenticate.getPrincipal();
+			
+			String token="hnbbutirugbibvtuigh8ut9865y68uibh98";
+					
+			LoginResponse loginResponse = LoginResponse.builder()
+					.user(mapper.map(customUserDetails.getUser(), UserDto.class))
+					.token(token)
+				    .build();
+					
+					return loginResponse;
+		}
+		
+	
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

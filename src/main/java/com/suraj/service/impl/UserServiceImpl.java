@@ -16,8 +16,7 @@ import com.suraj.repo.UserRepo;
 import com.suraj.service.UserService;
 import com.suraj.util.Validation;
 
-import jakarta.mail.MessagingException;
-import lombok.val;
+
 
 @Service
 public class UserServiceImpl implements UserService {

@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 
 import com.suraj.handler.GenericResponse;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 public class CommonUtil {
 
 	public static ResponseEntity<?> createBuildRespone(Object data, HttpStatus status) {
@@ -91,6 +93,15 @@ public class CommonUtil {
 
 	        default: return "application/octet-stream"; // Generic binary stream for unknown files
 	    }
+	}
+
+	public static String getUrl(HttpServletRequest request) {
+		String apiUrl = request.getRequestURL().toString();
+		// http://localhost:8080/api/v1/auth
+		String servletPath = request.getServletPath();
+		// /api/v1/auth
+		apiUrl=apiUrl.replace(servletPath, "");
+		return apiUrl;
 	}
 
 

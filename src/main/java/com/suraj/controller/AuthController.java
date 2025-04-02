@@ -12,6 +12,8 @@ import com.suraj.dto.UserDto;
 import com.suraj.service.UserService;
 import com.suraj.util.CommonUtil;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
@@ -21,8 +23,13 @@ public class AuthController {
 
 	
 	@PostMapping("/")
-	public ResponseEntity<?> registerUser(@RequestBody UserDto userDto) throws Exception {
-		Boolean register = userService.regitster(userDto);
+	public ResponseEntity<?> registerUser(@RequestBody UserDto userDto,HttpServletRequest request) throws Exception {
+		
+		String url=CommonUtil.getUrl(request);
+		
+		
+		
+		Boolean register = userService.regitster(userDto,url);
 		if (register) {
 			return CommonUtil.createBuildResponeMessage("Register Successfull !Please check your email for verification", HttpStatus.OK);
 		} else {

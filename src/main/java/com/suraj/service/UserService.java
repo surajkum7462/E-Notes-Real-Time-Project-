@@ -4,6 +4,6 @@ import com.suraj.dto.UserDto;
 
 public interface UserService {
 	
-	public Boolean regitster(UserDto userDto) throws Exception;
+	public Boolean regitster(UserDto userDto, String url) throws Exception;
 
 }

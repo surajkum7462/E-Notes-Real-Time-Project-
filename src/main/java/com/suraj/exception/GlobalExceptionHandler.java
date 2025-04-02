@@ -28,17 +28,6 @@ public class GlobalExceptionHandler {
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	@ExceptionHandler(NullPointerException.class)
 	public ResponseEntity<?> handleNullPointerException(Exception e) {
@@ -79,16 +68,11 @@ public class GlobalExceptionHandler {
 	
 	
 	
+	@ExceptionHandler(SuccessException.class)
+	public ResponseEntity<?> handleSuccessException(SuccessException e) {
+		//return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+		return CommonUtil.createBuildResponeMessage(e.getMessage(), HttpStatus.OK);
+	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

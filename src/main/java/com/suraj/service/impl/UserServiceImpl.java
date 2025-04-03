@@ -22,6 +22,7 @@ import com.suraj.entity.Role;
 import com.suraj.entity.User;
 import com.suraj.repo.RoleRepo;
 import com.suraj.repo.UserRepo;
+import com.suraj.service.JWTService;
 import com.suraj.service.UserService;
 import com.suraj.util.Validation;
 
@@ -48,6 +49,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private JWTService jwtService;
 
 	@Override
 	public Boolean regitster(UserDto userDto,String url) throws Exception {
@@ -114,7 +118,10 @@ public class UserServiceImpl implements UserService {
 		{
 		     CustomUserDetails customUserDetails =(CustomUserDetails)authenticate.getPrincipal();
 			
-			String token="hnbbutirugbibvtuigh8ut9865y68uibh98";
+		     // For generating JWT token i create a class in service
+		     
+			String token=jwtService.generateToken(customUserDetails.getUser());
+			
 					
 			LoginResponse loginResponse = LoginResponse.builder()
 					.user(mapper.map(customUserDetails.getUser(), UserDto.class))
@@ -129,32 +136,4 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

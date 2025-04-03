@@ -129,9 +129,7 @@ public class UserServiceImpl implements UserService {
 				    .build();
 					
 					return loginResponse;
-		}
-		
-	
+		}			
 		return null;
 	}
 	

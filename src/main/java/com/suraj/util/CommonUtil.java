@@ -4,7 +4,11 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.suraj.config.security.CustomUserDetails;
+import com.suraj.dto.UserResponse;
+import com.suraj.entity.User;
 import com.suraj.handler.GenericResponse;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,65 +38,106 @@ public class CommonUtil {
 		return response.create();
 	}
 
-	
-
 	public static String getContentType(String originalFileName) {
-	    String extension = FilenameUtils.getExtension(originalFileName).toLowerCase();
+		String extension = FilenameUtils.getExtension(originalFileName).toLowerCase();
 
-	    switch (extension) {
-	        case "pdf": return "application/pdf";
-	        case "txt": return "text/plain";
-	        case "html": case "htm": return "text/html";
-	        case "css": return "text/css";
-	        case "js": return "application/javascript";
-	        case "json": return "application/json";
-	        case "xml": return "application/xml";
-	        case "csv": return "text/csv";
-	        case "zip": return "application/zip";
-	        case "gz": return "application/gzip";
-	        case "rar": return "application/vnd.rar";
-	        case "tar": return "application/x-tar";
-	        case "7z": return "application/x-7z-compressed";
+		switch (extension) {
+		case "pdf":
+			return "application/pdf";
+		case "txt":
+			return "text/plain";
+		case "html":
+		case "htm":
+			return "text/html";
+		case "css":
+			return "text/css";
+		case "js":
+			return "application/javascript";
+		case "json":
+			return "application/json";
+		case "xml":
+			return "application/xml";
+		case "csv":
+			return "text/csv";
+		case "zip":
+			return "application/zip";
+		case "gz":
+			return "application/gzip";
+		case "rar":
+			return "application/vnd.rar";
+		case "tar":
+			return "application/x-tar";
+		case "7z":
+			return "application/x-7z-compressed";
 
-	        // Image formats
-	        case "jpg": case "jpeg": return "image/jpeg";
-	        case "png": return "image/png";
-	        case "gif": return "image/gif";
-	        case "bmp": return "image/bmp";
-	        case "webp": return "image/webp";
-	        case "svg": return "image/svg+xml";
+		// Image formats
+		case "jpg":
+		case "jpeg":
+			return "image/jpeg";
+		case "png":
+			return "image/png";
+		case "gif":
+			return "image/gif";
+		case "bmp":
+			return "image/bmp";
+		case "webp":
+			return "image/webp";
+		case "svg":
+			return "image/svg+xml";
 
-	        // Audio formats
-	        case "mp3": return "audio/mpeg";
-	        case "wav": return "audio/wav";
-	        case "ogg": return "audio/ogg";
-	        case "m4a": return "audio/mp4";
+		// Audio formats
+		case "mp3":
+			return "audio/mpeg";
+		case "wav":
+			return "audio/wav";
+		case "ogg":
+			return "audio/ogg";
+		case "m4a":
+			return "audio/mp4";
 
-	        // Video formats
-	        case "mp4": return "video/mp4";
-	        case "avi": return "video/x-msvideo";
-	        case "mov": return "video/quicktime";
-	        case "wmv": return "video/x-ms-wmv";
-	        case "flv": return "video/x-flv";
-	        case "webm": return "video/webm";
-	        case "mkv": return "video/x-matroska";
+		// Video formats
+		case "mp4":
+			return "video/mp4";
+		case "avi":
+			return "video/x-msvideo";
+		case "mov":
+			return "video/quicktime";
+		case "wmv":
+			return "video/x-ms-wmv";
+		case "flv":
+			return "video/x-flv";
+		case "webm":
+			return "video/webm";
+		case "mkv":
+			return "video/x-matroska";
 
-	        // Microsoft Office formats
-	        case "doc": return "application/msword";
-	        case "docx": return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-	        case "xls": return "application/vnd.ms-excel";
-	        case "xlsx": return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-	        case "ppt": return "application/vnd.ms-powerpoint";
-	        case "pptx": return "application/vnd.openxmlformats-officedocument.presentationml.presentation";
+		// Microsoft Office formats
+		case "doc":
+			return "application/msword";
+		case "docx":
+			return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+		case "xls":
+			return "application/vnd.ms-excel";
+		case "xlsx":
+			return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+		case "ppt":
+			return "application/vnd.ms-powerpoint";
+		case "pptx":
+			return "application/vnd.openxmlformats-officedocument.presentationml.presentation";
 
-	        // Other document formats
-	        case "rtf": return "application/rtf";
-	        case "odt": return "application/vnd.oasis.opendocument.text";
-	        case "ods": return "application/vnd.oasis.opendocument.spreadsheet";
-	        case "odp": return "application/vnd.oasis.opendocument.presentation";
+		// Other document formats
+		case "rtf":
+			return "application/rtf";
+		case "odt":
+			return "application/vnd.oasis.opendocument.text";
+		case "ods":
+			return "application/vnd.oasis.opendocument.spreadsheet";
+		case "odp":
+			return "application/vnd.oasis.opendocument.presentation";
 
-	        default: return "application/octet-stream"; // Generic binary stream for unknown files
-	    }
+		default:
+			return "application/octet-stream"; // Generic binary stream for unknown files
+		}
 	}
 
 	public static String getUrl(HttpServletRequest request) {
@@ -100,9 +145,23 @@ public class CommonUtil {
 		// http://localhost:8080/api/v1/auth
 		String servletPath = request.getServletPath();
 		// /api/v1/auth
-		apiUrl=apiUrl.replace(servletPath, "");
+		apiUrl = apiUrl.replace(servletPath, "");
 		return apiUrl;
 	}
 
+	// To extract user info
+	public static User getLoggedInUser() {
+
+		try {
+			CustomUserDetails logUser = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication()
+					.getPrincipal();
+
+			return logUser.getUser();
+			
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
 
 }

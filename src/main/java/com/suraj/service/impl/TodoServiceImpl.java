@@ -15,6 +15,7 @@ import com.suraj.enums.TodoStatus;
 import com.suraj.exception.ResourceNotFoundException;
 import com.suraj.repo.TodoRepo;
 import com.suraj.service.TodoService;
+import com.suraj.util.CommonUtil;
 import com.suraj.util.Validation;
 
 @Service
@@ -81,7 +82,7 @@ public class TodoServiceImpl implements TodoService{
 
 	@Override
 	public List<TodoDto> getTodoByUser() {
-		Integer userId=2;
+		Integer userId = CommonUtil.getLoggedInUser().getId();
 		List<Todo> todos=todoRepo.findByCreatedBy(userId);
 		List<TodoDto> todoList = todos.stream().map(td->mapper.map(td, TodoDto.class)).toList();
 		

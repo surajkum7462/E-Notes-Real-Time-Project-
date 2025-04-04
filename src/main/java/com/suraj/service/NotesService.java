@@ -20,17 +20,17 @@ public interface NotesService {
 
 	public FileDetails getFileDetails(Integer id) throws Exception;
 
-	public NotesResponse getAllNotesByUser(Integer userId, Integer pageNo, Integer pageSize);
+	public NotesResponse getAllNotesByUser(Integer pageNo, Integer pageSize);
 
 	public void softDeleteNotes(Integer id) throws Exception;
 
 	public void restoreNotes(Integer id) throws Exception;
 
-	public List<NotesDto> getUserRecycleBinNotes(Integer id);
+	public List<NotesDto> getUserRecycleBinNotes();
 
 	public void hardDeleteNotes(Integer id) throws Exception;
 
-	public void emptyRecycleBean(Integer userId);
+	public void emptyRecycleBean();
 	
 	public void favouriteNotes(Integer notesId) throws Exception;
 	

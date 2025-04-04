@@ -2,11 +2,11 @@ package com.suraj.service;
 
 import com.suraj.dto.LoginRequest;
 import com.suraj.dto.LoginResponse;
-import com.suraj.dto.UserDto;
+import com.suraj.dto.UserRequest;
 
 public interface UserService {
 	
-	public Boolean regitster(UserDto userDto, String url) throws Exception;
+	public Boolean regitster(UserRequest userDto, String url) throws Exception;
 
 	public LoginResponse login(LoginRequest loginRequest);
 

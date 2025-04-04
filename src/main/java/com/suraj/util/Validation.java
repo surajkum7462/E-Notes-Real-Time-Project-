@@ -13,7 +13,7 @@ import org.springframework.util.StringUtils;
 import com.suraj.dto.CategoryDto;
 import com.suraj.dto.TodoDto;
 import com.suraj.dto.TodoDto.StatusDto;
-import com.suraj.dto.UserDto;
+import com.suraj.dto.UserRequest;
 import com.suraj.entity.Role;
 import com.suraj.enums.TodoStatus;
 import com.suraj.exception.ExistsDataException;
@@ -97,7 +97,7 @@ public class Validation {
 		}
 	}
 
-	public void userValidation(UserDto userDto)
+	public void userValidation(UserRequest userDto)
 	{
 	
 		

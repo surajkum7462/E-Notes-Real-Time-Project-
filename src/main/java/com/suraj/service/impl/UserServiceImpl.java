@@ -16,7 +16,7 @@ import com.suraj.config.security.CustomUserDetails;
 import com.suraj.dto.EmailRequest;
 import com.suraj.dto.LoginRequest;
 import com.suraj.dto.LoginResponse;
-import com.suraj.dto.UserDto;
+import com.suraj.dto.UserRequest;
 import com.suraj.entity.AccountStatus;
 import com.suraj.entity.Role;
 import com.suraj.entity.User;
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
 	private JWTService jwtService;
 
 	@Override
-	public Boolean regitster(UserDto userDto,String url) throws Exception {
+	public Boolean regitster(UserRequest userDto,String url) throws Exception {
 		validation.userValidation(userDto);
 
 		User user = mapper.map(userDto, User.class);
@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService {
 		emailService.send(emailReq);
 	}
 
-	private void setRole(UserDto userDto, User user) {
+	private void setRole(UserRequest userDto, User user) {
 		List<Integer> reqRoleId = userDto.getRoles().stream().map(r -> r.getId()).toList();
 		List<Role> roles = roleRepo.findAllById(reqRoleId);
 		user.setRoles(roles);
@@ -124,7 +124,7 @@ public class UserServiceImpl implements UserService {
 			
 					
 			LoginResponse loginResponse = LoginResponse.builder()
-					.user(mapper.map(customUserDetails.getUser(), UserDto.class))
+					.user(mapper.map(customUserDetails.getUser(), UserRequest.class))
 					.token(token)
 				    .build();
 					

@@ -42,6 +42,7 @@ import com.suraj.repo.FIleDetailsRepo;
 import com.suraj.repo.FavouriteNotesRepo;
 import com.suraj.repo.NotesRepo;
 import com.suraj.service.NotesService;
+import com.suraj.util.CommonUtil;
 
 @Service
 public class NotesServiceImpl implements NotesService {
@@ -210,9 +211,10 @@ public class NotesServiceImpl implements NotesService {
 	}
 
 	@Override
-	public NotesResponse getAllNotesByUser(Integer userId, Integer pageNo, Integer pageSize) {
+	public NotesResponse getAllNotesByUser(Integer pageNo, Integer pageSize) {
 
 		// 10 data = 5,5-> 2 Pages
+		Integer userId = CommonUtil.getLoggedInUser().getId();
 		PageRequest pageble = PageRequest.of(pageNo, pageSize);
 
 		Page<Notes> pageNotes = notesRepo.findByCreatedByAndIsDeletedFalse(userId, pageble);
@@ -248,9 +250,10 @@ public class NotesServiceImpl implements NotesService {
 	}
 
 	@Override
-	public List<NotesDto> getUserRecycleBinNotes(Integer id) {
+	public List<NotesDto> getUserRecycleBinNotes() {
+		Integer userId = CommonUtil.getLoggedInUser().getId();
 
-		List<Notes> recycleNotes = notesRepo.findByCreatedByAndIsDeletedTrue(id);
+		List<Notes> recycleNotes = notesRepo.findByCreatedByAndIsDeletedTrue(userId);
 
 		List<NotesDto> notesDto = recycleNotes.stream().map(note -> mapper.map(note, NotesDto.class)).toList();
 
@@ -270,7 +273,8 @@ public class NotesServiceImpl implements NotesService {
 	}
 
 	@Override
-	public void emptyRecycleBean(Integer userId) {
+	public void emptyRecycleBean() {
+		Integer userId = CommonUtil.getLoggedInUser().getId();
 		List<Notes> recycleNotes = notesRepo.findByCreatedByAndIsDeletedTrue(userId);
 		if (!CollectionUtils.isEmpty(recycleNotes)) {
 			notesRepo.deleteAll(recycleNotes);
@@ -279,7 +283,7 @@ public class NotesServiceImpl implements NotesService {
 
 	@Override
 	public void favouriteNotes(Integer notesId) throws Exception {
-		Integer userId = 2;
+		Integer userId = CommonUtil.getLoggedInUser().getId();
 		Notes notes = notesRepo.findById(notesId)
 				.orElseThrow(() -> new ResourceNotFoundException("Notes Not FOund !Invalid Id"));
 
@@ -299,7 +303,7 @@ public class NotesServiceImpl implements NotesService {
 
 	@Override
 	public List<FavouriteNotesDto> getUserFavouriteNotes() throws Exception {
-		Integer userId = 2;
+		Integer userId = CommonUtil.getLoggedInUser().getId();
 
 		List<FavouriteNotes> favNotes = favouriteNotesRepo.findByUserId(userId);
 

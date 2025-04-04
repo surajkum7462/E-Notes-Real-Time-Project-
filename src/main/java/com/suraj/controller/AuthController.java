@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.suraj.dto.LoginRequest;
 import com.suraj.dto.LoginResponse;
 import com.suraj.dto.UserRequest;
-import com.suraj.service.UserService;
+import com.suraj.service.AuthService;
 import com.suraj.util.CommonUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,14 +22,14 @@ import jakarta.servlet.http.HttpServletRequest;
 public class AuthController {
 
 	@Autowired
-	private UserService userService;
+	private AuthService authService;
 
 	
 	@PostMapping("/")
 	public ResponseEntity<?> registerUser(@RequestBody UserRequest userDto,HttpServletRequest request) throws Exception {
 		
 		String url=CommonUtil.getUrl(request);
-      	Boolean register = userService.regitster(userDto,url);
+      	Boolean register = authService.regitster(userDto,url);
 		if (register) {
 			return CommonUtil.createBuildResponeMessage("Register Successfull !Please check your email for verification", HttpStatus.OK);
 		} else {
@@ -42,7 +42,7 @@ public class AuthController {
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws Exception {
 	
-		LoginResponse response =userService.login(loginRequest);
+		LoginResponse response =authService.login(loginRequest);
 		if(ObjectUtils.isEmpty(response))
 		{
 			return CommonUtil.createErrorResponeMessage("Invalid Credentials", HttpStatus.BAD_REQUEST);

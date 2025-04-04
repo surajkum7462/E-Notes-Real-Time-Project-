@@ -70,14 +70,14 @@ public class AuthServiceImpl implements AuthService {
 		User save = userRepo.save(user);
 		if (!ObjectUtils.isEmpty(save)) {
 			// send email
-			emailSend(save,url);
+			emailSendForRegister(save,url);
 			return true;
 		}
 
 		return false;
 	}
 
-	private void emailSend(User save, String url) throws Exception {
+	private void emailSendForRegister(User save, String url) throws Exception {
 		String message = "<div style='font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9; text-align: center;'>"
 				+ "<h2 style='color: #2E86C1; margin-bottom: 10px;'>Welcome to <span style='color: #28a745;'>E-Notes</span>, "
 				 + "[[username]]!</h2>"

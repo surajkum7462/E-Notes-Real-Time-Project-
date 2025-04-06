@@ -175,4 +175,49 @@ public class NotesController {
 		}
 	}
 
+	
+	@GetMapping("/search")
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> searchNotes(@RequestParam(name = "key" ,defaultValue = "") String key ,
+			@RequestParam(name = "pageNo", defaultValue = "0") Integer pageNo,
+			@RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
+
+		Integer userId = CommonUtil.getLoggedInUser().getId();
+
+		NotesResponse notes = notesService.getNotesByUserSearch(pageNo, pageSize,key);
+
+		return CommonUtil.createBuildRespone(notes, HttpStatus.OK);
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

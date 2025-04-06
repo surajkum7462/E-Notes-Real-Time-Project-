@@ -1,5 +1,6 @@
 package com.suraj.service.impl;
 
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -332,4 +334,49 @@ public class NotesServiceImpl implements NotesService {
 
 	}
 
+	@Override
+	public NotesResponse getNotesByUserSearch(Integer pageNo, Integer pageSize,String keyword) {
+		// 10 data = 5,5-> 2 Pages
+				Integer userId = CommonUtil.getLoggedInUser().getId();
+				Pageable pageble = PageRequest.of(pageNo, pageSize);
+
+				Page<Notes> pageNotes = notesRepo.searchNotes(keyword,userId, pageble);
+
+				List<NotesDto> notesDto = pageNotes.get().map(n -> mapper.map(n, NotesDto.class)).toList();
+
+				NotesResponse notesRes = NotesResponse.builder().notes(notesDto).pageNo(pageNotes.getNumber())
+						.pageSize(pageNotes.getSize()).totalElements(pageNotes.getTotalElements())
+						.totalPages(pageNotes.getTotalPages()).isFirst(pageNotes.isFirst()).isLast(pageNotes.isLast())
+
+						.build();
+
+				return notesRes;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

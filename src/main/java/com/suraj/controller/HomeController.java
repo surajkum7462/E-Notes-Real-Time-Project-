@@ -1,5 +1,7 @@
 package com.suraj.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +17,15 @@ import com.suraj.service.HomeService;
 import com.suraj.service.UserService;
 import com.suraj.util.CommonUtil;
 
+
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/v1/home")
 public class HomeController {
+	
+	
+	Logger log = LoggerFactory.getLogger(HomeController.class);
 	
 	
 	@Autowired
@@ -31,11 +37,14 @@ public class HomeController {
 	@GetMapping("/verify")
 	public ResponseEntity<?> verifyUserAccount(@RequestParam Integer uid , @RequestParam String code) throws Exception
 	{
+		log.info("HomeController : verifyUserAccount() : Execution Start");
 		Boolean verifyAccount = homeService.verifyAccount(uid, code);
 		if(verifyAccount)
 		{
+			log.info("HomeController : verifyUserAccount() : Execution End");
 			return CommonUtil.createBuildResponeMessage("You have Successfully verified!now try to login", HttpStatus.OK);
 		}
+		log.info("HomeController : verifyUserAccount() : Execution End");
 		return CommonUtil.createErrorResponeMessage("Invalid Verification link", HttpStatus.BAD_REQUEST);
 	}
 	

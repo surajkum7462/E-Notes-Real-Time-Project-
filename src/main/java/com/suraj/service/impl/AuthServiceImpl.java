@@ -27,6 +27,9 @@ import com.suraj.service.JWTService;
 import com.suraj.service.AuthService;
 import com.suraj.util.Validation;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class AuthServiceImpl implements AuthService {
 
@@ -56,6 +59,7 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public Boolean regitster(UserRequest userDto,String url) throws Exception {
+		log.info("AuthServiceImpl : regitster() : Execution Start");
 		validation.userValidation(userDto);
 
 		User user = mapper.map(userDto, User.class);
@@ -68,13 +72,17 @@ public class AuthServiceImpl implements AuthService {
 		user.setStatus(status);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 		User save = userRepo.save(user);
-		if (!ObjectUtils.isEmpty(save)) {
-			// send email
-			emailSendForRegister(save,url);
-			return true;
+		if (ObjectUtils.isEmpty(save)) {
+			log.info("Message : {}","User Not Saved ");
+			return false;
+			
 		}
-
-		return false;
+		log.info("Message : {}","User Register Success");
+		// send email
+		emailSendForRegister(save,url);
+		log.info("Message : {}","email send success ");
+		log.info("AuthServiceImpl : regitster() : Execution End");
+		return true;
 	}
 
 	private void emailSendForRegister(User save, String url) throws Exception {
@@ -112,7 +120,7 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public LoginResponse login(LoginRequest loginRequest) {
-		
+		log.info("AuthServiceImpl : login() : Execution Start");
 		Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 		
 		if(authenticate.isAuthenticated())
@@ -128,11 +136,10 @@ public class AuthServiceImpl implements AuthService {
 					.user(mapper.map(customUserDetails.getUser(), UserResponse.class))
 					.token(token)
 				    .build();
-					
+			log.info("AuthServiceImpl : regitster() : Execution End");
 					return loginResponse;
-		}			
+		}
+		log.info("Message : {}","Login Failed ");
 		return null;
 	}
-	
-	
 }

@@ -16,6 +16,10 @@ import com.suraj.entity.User;
 import com.suraj.service.UserService;
 import com.suraj.util.CommonUtil;
 
+import lombok.extern.slf4j.Slf4j;
+
+
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/user")
 public class UserController {
@@ -32,8 +36,10 @@ public class UserController {
 	@PostMapping("/profile")
 	public ResponseEntity<?> getProfile()
 	{
+		log.info("UserController :: getProfile() : Start");
 		User loggedInUser = CommonUtil.getLoggedInUser();
 		UserResponse userResponse = mapper.map(loggedInUser, UserResponse.class);
+		log.info("UserController :: getProfile() : End");
 		return CommonUtil.createBuildRespone(userResponse, HttpStatus.OK);
 	}
 	
@@ -43,7 +49,9 @@ public class UserController {
 	@PostMapping("/chng-pswd")
 	public ResponseEntity<?> changePassword(@RequestBody PasswordChangeRequest passwordChangeRequest) throws Exception
 	{
+		log.info("UserController :: changePassword() : Start");
 		userService.changePassword(passwordChangeRequest);
+		log.info("UserController : changePassword() : Execution End");
 		return CommonUtil.createBuildRespone("Password Changed Successfully", HttpStatus.OK);
 	}
 

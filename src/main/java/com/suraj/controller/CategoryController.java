@@ -19,19 +19,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.suraj.dto.CategoryDto;
 import com.suraj.dto.CategoryResponse;
+
+import com.suraj.endpoint.CategoryEndpoint;
 import com.suraj.entity.Category;
 import com.suraj.service.CategoryService;
 import com.suraj.util.CommonUtil;
 
 @RestController
-@RequestMapping("/api/v1/category")
-public class CategoryController {
+
+public class CategoryController implements CategoryEndpoint{
 
 	@Autowired
 	private CategoryService categoryService;
 
-	@PostMapping("/save")
-	@PreAuthorize("hasRole('ADMIN')")
+	@Override
 	public ResponseEntity<?> saveCategory(@RequestBody CategoryDto categoryDto) {
 		Boolean saveCategory = categoryService.saveCategory(categoryDto);
 		if (saveCategory) {
@@ -45,8 +46,7 @@ public class CategoryController {
 		}
 	}
 
-	@GetMapping("/")
-	@PreAuthorize("hasRole('ADMIN')")
+	@Override
 	public ResponseEntity<?> getAllCategory() {
 //		String name=null;
 //		name.toUpperCase();
@@ -60,8 +60,7 @@ public class CategoryController {
 		}
 	}
 
-	@GetMapping("/active")
-	@PreAuthorize("hasAnyRole('USER','ADMIN')")
+	@Override
 	public ResponseEntity<?> getActiveCategory() {
 		List<CategoryResponse> allCategory = categoryService.getActiveCategory();
 		if (CollectionUtils.isEmpty(allCategory)) {
@@ -71,8 +70,7 @@ public class CategoryController {
 		}
 	}
 
-	@GetMapping("/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@Override
 	public ResponseEntity<?> getCategoryDetailsById(@PathVariable Integer id) throws Exception {
 		CategoryDto category = categoryService.getCategoryById(id);
 		if (ObjectUtils.isEmpty(category)) {
@@ -85,8 +83,7 @@ public class CategoryController {
 
 	}
 
-	@DeleteMapping("/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@Override
 	public ResponseEntity<?> delete(@PathVariable Integer id) {
 		Boolean b = categoryService.deleteCategory(id);
 		if (b) {

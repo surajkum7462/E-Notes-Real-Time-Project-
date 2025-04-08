@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.suraj.dto.PasswordChangeRequest;
 import com.suraj.dto.UserResponse;
+import com.suraj.endpoint.UserEndPoint;
 import com.suraj.entity.User;
 import com.suraj.service.UserService;
 import com.suraj.util.CommonUtil;
@@ -21,8 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/user")
-public class UserController {
+
+public class UserController implements UserEndPoint{
 	
 	
 	@Autowired
@@ -33,7 +34,7 @@ public class UserController {
 	private UserService userService;
 	
 	
-	@PostMapping("/profile")
+	@Override
 	public ResponseEntity<?> getProfile()
 	{
 		log.info("UserController :: getProfile() : Start");
@@ -46,7 +47,7 @@ public class UserController {
 	
 	
 
-	@PostMapping("/chng-pswd")
+	@Override
 	public ResponseEntity<?> changePassword(@RequestBody PasswordChangeRequest passwordChangeRequest) throws Exception
 	{
 		log.info("UserController :: changePassword() : Start");

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.suraj.dto.PswdResetRequest;
+import com.suraj.endpoint.HomeControllerEndPoint;
 import com.suraj.service.HomeService;
 import com.suraj.service.UserService;
 import com.suraj.util.CommonUtil;
@@ -21,8 +22,8 @@ import com.suraj.util.CommonUtil;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/api/v1/home")
-public class HomeController {
+
+public class HomeController implements  HomeControllerEndPoint{
 	
 	
 	Logger log = LoggerFactory.getLogger(HomeController.class);
@@ -34,7 +35,7 @@ public class HomeController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("/verify")
+	@Override
 	public ResponseEntity<?> verifyUserAccount(@RequestParam Integer uid , @RequestParam String code) throws Exception
 	{
 		log.info("HomeController : verifyUserAccount() : Execution Start");
@@ -50,7 +51,7 @@ public class HomeController {
 	
 	// 1.Send Email for verification
 	
-	@GetMapping("/send-email")
+	@Override
 	public ResponseEntity<?> sendEmailForPasswordReset(@RequestParam String email,HttpServletRequest request) throws Exception
 	{
 		userService.sendEmailPasswordReset(email,request);
@@ -58,7 +59,8 @@ public class HomeController {
 	}
 	
 	// After Getting email with link and click on link then this url hit
-	@GetMapping("/verify-pwsd-link")
+	
+	@Override
 	public ResponseEntity<?> verifyPasswordResetLink(@RequestParam Integer uid , @RequestParam String code) throws Exception
 	{
 		userService.verifyPswdResetLink(uid,code);
@@ -67,7 +69,7 @@ public class HomeController {
 	}
 	
 	
-	@PostMapping("/reset-pswd")
+	@Override
 	public ResponseEntity<?> resetPassword(@RequestBody PswdResetRequest pswdResetRequest) throws Exception
 	{
 		userService.resetPassword(pswdResetRequest);

@@ -36,7 +36,7 @@ public class HomeController implements  HomeControllerEndPoint{
 	private UserService userService;
 	
 	@Override
-	public ResponseEntity<?> verifyUserAccount(@RequestParam Integer uid , @RequestParam String code) throws Exception
+	public ResponseEntity<?> verifyUserAccount(Integer uid ,String code) throws Exception
 	{
 		log.info("HomeController : verifyUserAccount() : Execution Start");
 		Boolean verifyAccount = homeService.verifyAccount(uid, code);
@@ -52,7 +52,7 @@ public class HomeController implements  HomeControllerEndPoint{
 	// 1.Send Email for verification
 	
 	@Override
-	public ResponseEntity<?> sendEmailForPasswordReset(@RequestParam String email,HttpServletRequest request) throws Exception
+	public ResponseEntity<?> sendEmailForPasswordReset(String email,HttpServletRequest request) throws Exception
 	{
 		userService.sendEmailPasswordReset(email,request);
 		return CommonUtil.createBuildResponeMessage("Reset link is sent in your email", HttpStatus.OK);
@@ -61,7 +61,7 @@ public class HomeController implements  HomeControllerEndPoint{
 	// After Getting email with link and click on link then this url hit
 	
 	@Override
-	public ResponseEntity<?> verifyPasswordResetLink(@RequestParam Integer uid , @RequestParam String code) throws Exception
+	public ResponseEntity<?> verifyPasswordResetLink(Integer uid ,String code) throws Exception
 	{
 		userService.verifyPswdResetLink(uid,code);
 		return CommonUtil.createBuildResponeMessage("Verification success", HttpStatus.OK);
@@ -70,7 +70,7 @@ public class HomeController implements  HomeControllerEndPoint{
 	
 	
 	@Override
-	public ResponseEntity<?> resetPassword(@RequestBody PswdResetRequest pswdResetRequest) throws Exception
+	public ResponseEntity<?> resetPassword(PswdResetRequest pswdResetRequest) throws Exception
 	{
 		userService.resetPassword(pswdResetRequest);
 		return CommonUtil.createBuildResponeMessage("Password reset success", HttpStatus.OK);

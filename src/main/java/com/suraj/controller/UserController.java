@@ -48,7 +48,7 @@ public class UserController implements UserEndPoint{
 	
 
 	@Override
-	public ResponseEntity<?> changePassword(@RequestBody PasswordChangeRequest passwordChangeRequest) throws Exception
+	public ResponseEntity<?> changePassword(PasswordChangeRequest passwordChangeRequest) throws Exception
 	{
 		log.info("UserController :: changePassword() : Start");
 		userService.changePassword(passwordChangeRequest);

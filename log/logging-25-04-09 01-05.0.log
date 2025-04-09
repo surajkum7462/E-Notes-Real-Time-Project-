@@ -1,0 +1,4 @@
+2025-09-05 01:05 INFO  [http-nio-8080-exec-8] com.suraj.controller.AuthController	-AuthController : registerUser() : Execution Start
+2025-09-05 01:05 INFO  [http-nio-8080-exec-8] c.suraj.service.impl.AuthServiceImpl	-AuthServiceImpl : regitster() : Execution Start
+2025-09-05 01:05 ERROR [http-nio-8080-exec-8] c.s.exception.GlobalExceptionHandler	-GlobalExceptionHandler :: handleExistDataException : Email is already exist
+2025-09-05 01:05 WARN  [http-nio-8080-exec-8] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver	-Resolved [com.suraj.exception.ExistsDataException: Email is already exist]

@@ -38,6 +38,14 @@ spring:
           starttls:
             enable: true
 
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+    tagsSorter: alpha
+    path: /enotes-doc
+  api-docs:
+    path: /enotes-api-docs
+
 file:
   upload:
     path: notes/
@@ -75,6 +83,14 @@ spring:
           auth: true
           starttls:
             enable: true
+
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+    tagsSorter: alpha
+    path: /enotes-doc
+  api-docs:
+    path: /enotes-api-docs
 
 file:
   upload:
@@ -114,6 +130,14 @@ spring:
           starttls:
             enable: true
 
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+    tagsSorter: alpha
+    path: /enotes-doc
+  api-docs:
+    path: /enotes-api-docs
+
 file:
   upload:
     path: notes/
@@ -151,6 +175,14 @@ spring:
           auth: true
           starttls:
             enable: true
+
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+    tagsSorter: alpha
+    path: /enotes-doc
+  api-docs:
+    path: /enotes-api-docs
 
 file:
   upload:

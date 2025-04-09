@@ -1,0 +1,2 @@
+2025-09-11 12:11 ERROR [http-nio-8080-exec-5] c.s.exception.GlobalExceptionHandler	-GlobalExceptionHandler :: handlerIllegalArgumentException : Page size must not be less than one
+2025-09-11 12:11 WARN  [http-nio-8080-exec-5] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver	-Resolved [java.lang.IllegalArgumentException: Page size must not be less than one]

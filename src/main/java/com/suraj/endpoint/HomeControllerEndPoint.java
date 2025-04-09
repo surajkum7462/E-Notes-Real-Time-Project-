@@ -9,23 +9,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.suraj.dto.PswdResetRequest;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 
 
+@Tag(name = "Home",description = "All the Home  APIs")
 @RequestMapping("/api/v1/home")
 public interface HomeControllerEndPoint {
 
+	
+	@Operation(summary = "Verification User Account",tags = {"Home"},description = "User Account Verification After Register Account")
 	@GetMapping("/verify")
 	public ResponseEntity<?> verifyUserAccount(@RequestParam Integer uid, @RequestParam String code) throws Exception;
 
+	
+	@Operation(summary = "Send Email For Password Reset",tags = {"Home"},description = "User Can send email for password reset")
 	@GetMapping("/send-email")
 	public ResponseEntity<?> sendEmailForPasswordReset(@RequestParam String email, HttpServletRequest request)
 			throws Exception;
 
+	
+	@Operation(summary = "Verification Password Link",tags = {"Home"},description = "User Verification Password Link")
 	@GetMapping("/verify-pwsd-link")
 	public ResponseEntity<?> verifyPasswordResetLink(@RequestParam Integer uid, @RequestParam String code)
 			throws Exception;
 
+	
+	@Operation(summary = "Reset Password",tags = {"Home"},description = "User Can changes their password")
 	@PostMapping("/reset-pswd")
 	public ResponseEntity<?> resetPassword(@RequestBody PswdResetRequest pswdResetRequest) throws Exception;
 }

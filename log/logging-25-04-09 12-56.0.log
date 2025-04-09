@@ -1,0 +1,2 @@
+2025-09-56 12:56 ERROR [http-nio-8080-exec-6] c.s.exception.GlobalExceptionHandler	-GlobalExceptionHandler :: handlerAccessDeniedException : Access Denied
+2025-09-56 12:56 WARN  [http-nio-8080-exec-6] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver	-Resolved [org.springframework.security.authorization.AuthorizationDeniedException: Access Denied]

@@ -1,4 +1,0 @@
-2025-09-04 13:04 ERROR [http-nio-8080-exec-2] c.s.exception.GlobalExceptionHandler	-GlobalExceptionHandler :: handleResourceNotFoundException : File is not available
-2025-09-04 13:04 WARN  [http-nio-8080-exec-2] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver	-Resolved [com.suraj.exception.ResourceNotFoundException: File is not available]
-2025-09-04 13:04 ERROR [http-nio-8080-exec-1] c.s.exception.GlobalExceptionHandler	-GlobalExceptionHandler :: handleResourceNotFoundException : File is not available
-2025-09-04 13:04 WARN  [http-nio-8080-exec-1] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver	-Resolved [com.suraj.exception.ResourceNotFoundException: File is not available]

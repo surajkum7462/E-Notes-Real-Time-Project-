@@ -1,3 +1,0 @@
-2025-09-07 01:07 INFO  [http-nio-8080-exec-9] c.suraj.service.impl.AuthServiceImpl	-Message : email send success 
-2025-09-07 01:07 INFO  [http-nio-8080-exec-9] c.suraj.service.impl.AuthServiceImpl	-AuthServiceImpl : regitster() : Execution End
-2025-09-07 01:07 INFO  [http-nio-8080-exec-9] com.suraj.controller.AuthController	-AuthController : registerUser() : Execution End

@@ -1,4 +1,0 @@
-2025-09-11 10:11 INFO  [http-nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]	-Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-11 10:11 INFO  [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet	-Initializing Servlet 'dispatcherServlet'
-2025-09-11 10:11 INFO  [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet	-Completed initialization in 2 ms
-2025-09-11 10:11 INFO  [http-nio-8080-exec-9] o.s.api.AbstractOpenApiResource	-Init duration for springdoc-openapi is: 176 ms

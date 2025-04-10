@@ -23,8 +23,8 @@ import com.suraj.entity.Role;
 import com.suraj.entity.User;
 import com.suraj.repo.RoleRepo;
 import com.suraj.repo.UserRepo;
-import com.suraj.service.JWTService;
 import com.suraj.service.AuthService;
+import com.suraj.service.JWTService;
 import com.suraj.util.Validation;
 
 import lombok.extern.slf4j.Slf4j;

@@ -1,11 +1,12 @@
 package com.suraj.endpoint;
 
 
+import static com.suraj.util.Constatnts.DEFAULT_PAGE_NO;
+import static com.suraj.util.Constatnts.DEFAULT_PAGE_SIZE;
 import static com.suraj.util.Constatnts.ROLE_ADMIN;
 import static com.suraj.util.Constatnts.ROLE_ADMIN_USER;
 import static com.suraj.util.Constatnts.ROLE_USER;
-import static com.suraj.util.Constatnts.DEFAULT_PAGE_NO;
-import static com.suraj.util.Constatnts.DEFAULT_PAGE_SIZE;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.suraj.dto.NotesDto;
 import com.suraj.dto.NotesRequest;
 
 import io.swagger.v3.oas.annotations.Operation;

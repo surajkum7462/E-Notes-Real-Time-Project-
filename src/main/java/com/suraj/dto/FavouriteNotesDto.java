@@ -1,7 +1,5 @@
 package com.suraj.dto;
 
-import com.suraj.entity.Notes;
-
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

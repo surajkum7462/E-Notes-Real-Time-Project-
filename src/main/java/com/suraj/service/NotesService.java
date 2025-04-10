@@ -7,7 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.suraj.dto.FavouriteNotesDto;
 import com.suraj.dto.NotesDto;
 import com.suraj.dto.NotesResponse;
-import com.suraj.entity.FavouriteNotes;
 import com.suraj.entity.FileDetails;
 
 public interface NotesService {

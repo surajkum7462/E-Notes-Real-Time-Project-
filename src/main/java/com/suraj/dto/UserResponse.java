@@ -2,8 +2,6 @@ package com.suraj.dto;
 
 import java.util.List;
 
-import com.suraj.dto.UserRequest.RoleDto;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

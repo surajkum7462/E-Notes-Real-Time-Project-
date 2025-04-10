@@ -1,0 +1,7 @@
+2025-10-13 10:13 INFO  [main] o.s.t.c.s.AnnotationConfigContextLoaderUtils	-Could not detect default configuration classes for test class [com.suraj.ENotesApiServiceApplicationTests]: ENotesApiServiceApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-10-13 10:13 INFO  [main] o.s.b.t.c.SpringBootTestContextBootstrapper	-Found @SpringBootConfiguration com.suraj.ENotesApiServiceApplication for test class com.suraj.ENotesApiServiceApplicationTests
+2025-10-13 10:13 INFO  [main] o.s.b.d.r.RestartApplicationListener	-Restart disabled due to context in which it is running
+2025-10-13 10:13 INFO  [main] c.s.ENotesApiServiceApplicationTests	-Starting ENotesApiServiceApplicationTests using Java 21.0.6 with PID 9684 (started by sskum in S:\E-Notes Real Time Project\E-Notes-Real-Time-Project-)
+2025-10-13 10:13 INFO  [main] c.s.ENotesApiServiceApplicationTests	-The following 1 profile is active: "dev"
+2025-10-13 10:13 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate	-Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-13 10:13 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate	-Finished Spring Data repository scanning in 69 ms. Found 7 JPA repository interfaces.

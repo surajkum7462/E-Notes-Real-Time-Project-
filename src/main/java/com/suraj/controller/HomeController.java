@@ -5,11 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.suraj.dto.PswdResetRequest;
@@ -17,7 +12,6 @@ import com.suraj.endpoint.HomeControllerEndPoint;
 import com.suraj.service.HomeService;
 import com.suraj.service.UserService;
 import com.suraj.util.CommonUtil;
-
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -39,7 +33,7 @@ public class HomeController implements  HomeControllerEndPoint{
 	public ResponseEntity<?> verifyUserAccount(Integer uid ,String code) throws Exception
 	{
 		log.info("HomeController : verifyUserAccount() : Execution Start");
-		Boolean verifyAccount = homeService.verifyAccount(uid, code);
+		boolean verifyAccount = homeService.verifyAccount(uid, code);
 		if(verifyAccount)
 		{
 			log.info("HomeController : verifyUserAccount() : Execution End");
@@ -77,19 +71,4 @@ public class HomeController implements  HomeControllerEndPoint{
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

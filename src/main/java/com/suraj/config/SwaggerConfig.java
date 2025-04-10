@@ -1,7 +1,6 @@
 package com.suraj.config;
 
 
-import java.awt.Component;
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;

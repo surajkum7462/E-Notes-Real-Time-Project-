@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.suraj.dto.CategoryDto;
 import com.suraj.dto.CategoryResponse;
-import com.suraj.entity.Category;
-import com.suraj.exception.ResourceNotFoundException;
 
 
 public interface CategoryService {

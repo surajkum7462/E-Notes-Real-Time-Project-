@@ -2,8 +2,6 @@ package com.suraj.service.impl;
 
 import java.util.UUID;
 
-import javax.management.relation.RelationNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,7 +17,6 @@ import com.suraj.repo.UserRepo;
 import com.suraj.service.UserService;
 import com.suraj.util.CommonUtil;
 
-import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Service

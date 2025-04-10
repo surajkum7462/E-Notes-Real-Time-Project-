@@ -1,10 +1,7 @@
 package com.suraj.entity;
 
-import java.util.Date;
-
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;

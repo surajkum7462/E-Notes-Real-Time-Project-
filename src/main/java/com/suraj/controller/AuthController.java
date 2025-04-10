@@ -4,9 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.suraj.dto.LoginRequest;
@@ -33,7 +30,7 @@ public class AuthController implements AuthEndPoint{
 	public ResponseEntity<?> registerUser(UserRequest userDto,HttpServletRequest request) throws Exception {
 		log.info("AuthController : registerUser() : Execution Start");
 		String url=CommonUtil.getUrl(request);
-      	Boolean register = authService.regitster(userDto,url);
+      	boolean register = authService.regitster(userDto,url);
 		if (register) {
 			log.info("AuthController : registerUser() : Execution End");
 			return CommonUtil.createBuildResponeMessage("Register Successfull !Please check your email for verification", HttpStatus.OK);

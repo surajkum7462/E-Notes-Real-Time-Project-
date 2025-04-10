@@ -2,12 +2,10 @@ package com.suraj.util;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.suraj.config.security.CustomUserDetails;
-import com.suraj.dto.UserResponse;
 import com.suraj.entity.User;
 import com.suraj.handler.GenericResponse;
 

@@ -1,0 +1,51 @@
+2025-10-49 01:49 INFO  [restartedMain] c.suraj.ENotesApiServiceApplication	-Starting ENotesApiServiceApplication using Java 21.0.6 with PID 21240 (S:\E-Notes Real Time Project\E-Notes-Real-Time-Project-\target\classes started by sskum in S:\E-Notes Real Time Project\E-Notes-Real-Time-Project-)
+2025-10-49 01:49 INFO  [restartedMain] c.suraj.ENotesApiServiceApplication	-The following 1 profile is active: "dev"
+2025-10-49 01:49 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate	-Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-49 01:49 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate	-Finished Spring Data repository scanning in 0 ms. Found 0 JPA repository interfaces.
+2025-10-49 01:49 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer	-Tomcat initialized with port 8080 (http)
+2025-10-49 01:49 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol	-Initializing ProtocolHandler ["http-nio-8080"]
+2025-10-49 01:49 INFO  [restartedMain] o.a.catalina.core.StandardService	-Starting service [Tomcat]
+2025-10-49 01:49 INFO  [restartedMain] o.a.catalina.core.StandardEngine	-Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-10-49 01:49 INFO  [restartedMain] o.a.c.c.C.[Tomcat-1].[localhost].[/]	-Initializing Spring embedded WebApplicationContext
+2025-10-49 01:49 INFO  [restartedMain] o.s.b.w.s.c.ServletWebServerApplicationContext	-Root WebApplicationContext: initialization completed in 180 ms
+2025-10-49 01:49 INFO  [restartedMain] o.h.jpa.internal.util.LogHelper	-HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-49 01:49 INFO  [restartedMain] o.h.c.i.RegionFactoryInitiator	-HHH000026: Second-level cache disabled
+2025-10-49 01:49 INFO  [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo	-No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-49 01:49 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource	-HikariPool-3 - Starting...
+2025-10-49 01:49 INFO  [restartedMain] com.zaxxer.hikari.pool.HikariPool	-HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3c3343d5
+2025-10-49 01:49 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource	-HikariPool-3 - Start completed.
+2025-10-49 01:49 WARN  [restartedMain] org.hibernate.orm.deprecation	-HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-49 01:49 WARN  [restartedMain] org.hibernate.orm.deprecation	-HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-10-49 01:49 INFO  [restartedMain] o.hibernate.orm.connections.pooling	-HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-3)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-49 01:49 INFO  [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator	-HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-49 01:49 INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean	-Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-49 01:49 WARN  [restartedMain] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext	-Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaAuditingHandler': Cannot create inner bean '(inner bean)#28d30742' of type [org.springframework.aop.framework.ProxyFactoryBean] while setting bean property 'auditorAware'
+2025-10-49 01:49 INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean	-Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-49 01:49 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource	-HikariPool-3 - Shutdown initiated...
+2025-10-49 01:49 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource	-HikariPool-3 - Shutdown completed.
+2025-10-49 01:49 INFO  [restartedMain] o.a.catalina.core.StandardService	-Stopping service [Tomcat]
+2025-10-49 01:49 INFO  [restartedMain] o.s.b.a.l.ConditionEvaluationReportLogger	-
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-10-49 01:49 ERROR [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter	-
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+A component required a bean named 'auditAware' that could not be found.
+
+
+Action:
+
+Consider defining a bean named 'auditAware' in your configuration.
+

@@ -1,0 +1,5 @@
+2025-10-39 10:39 INFO  [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]	-Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-39 10:39 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet	-Initializing Servlet 'dispatcherServlet'
+2025-10-39 10:39 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet	-Completed initialization in 3 ms
+2025-10-39 10:39 ERROR [http-nio-8080-exec-1] c.s.exception.GlobalExceptionHandler	-GlobalExceptionHandler :: handlerException : No static resource actuator/env.
+2025-10-39 10:39 WARN  [http-nio-8080-exec-1] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver	-Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource actuator/env.]
